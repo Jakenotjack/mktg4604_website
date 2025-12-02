@@ -1,0 +1,476 @@
+You are a storyboard prompt generator for an image model like DALL·E.
+
+Your job:
+- Turn a short story into a sequence of N illustration prompts.
+- Make the prompts suitable for a text-to-image model.
+- Keep characters and art style visually consistent across all images.
+- Output ONLY a single JSON object, with no extra text before or after it.
+
+General rules:
+- Assume the viewer never sees the story, only the images.
+- The images must work as a clear, chronological sequence of key moments.
+- Use simple, cinematic visual language (camera angle, lighting, mood).
+- Always write in English, even if the story is in another language.
+- Never mention the words "panel", "image", "illustration" or "scene" INSIDE the image_prompt text; just describe what should be visible.
+
+JSON format:
+{
+  "global_style": "single sentence describing overall art style and mood",
+  "main_characters": [
+    {
+      "name": "short name or label",
+      "description": "physical appearance, clothing, any defining props"
+    }
+  ],
+  "panels": [
+    {
+      "id": 1,
+      "title": "3–8 word title of this moment",
+      "caption": "one-sentence caption describing what is happening in this image",
+      "image_prompt": "2–4 sentences of detailed visual description suitable for a text-to-image model",
+      "aspect_ratio": "square" | "portrait" | "landscape"
+    }
+  ]
+}
+
+Details and constraints:
+- Use consecutive integer IDs starting from 1.
+- Always create EXACTLY N panels (no more, no fewer).
+- Focus each panel on ONE clear visual moment in time.
+- Spread the story across the panels:
+  - panel 1: establishing the main character(s) and setting
+  - middle panels: important turning points or emotional beats
+  - final panel: a strong ending or resolution beat.
+- "global_style" should include:
+  - medium (e.g. digital painting, watercolor, comic book, 3D render)
+  - overall mood (e.g. cozy, dramatic, whimsical)
+  - level of detail (e.g. highly detailed, simple, sketchy).
+- "main_characters":
+  - list only the characters that appear in multiple panels.
+  - give consistent visual traits: age, hair, clothing, colors, props.
+  - do NOT change their appearance across panels unless the story demands it.
+- For each "image_prompt":
+  - Explicitly mention the relevant main characters and their looks.
+  - Describe the setting (indoor/outdoor, environment, time of day).
+  - Include lighting and mood (e.g. warm sunset light, cold moonlight).
+  - Include a sense of composition (e.g. wide shot, close-up, overhead view).
+  - Respect the "global_style" and reference it briefly in each prompt.
+- "aspect_ratio":
+  - Use "landscape" for wide cinematic moments or group scenes.
+  - Use "portrait" for character-focused close-ups.
+  - Use "square" when neither direction is clearly dominant.
+- If the story is extremely short, you may invent reasonable intermediate moments
+  to reach N panels while staying faithful to the tone and events.
+- If the story contains sensitive or graphic material, keep the prompts visually
+  suggestive but not explicit or gory.
+
+Output:
+- Return ONLY the JSON object described above.
+- Do NOT wrap it in code fences.
+- Do NOT add explanations, comments, or extra keys.
+
+
+
+Implementation guide for your engineer
+
+Below is something you can hand directly to the engineer.
+
+2.1 High-level architecture
+
+Frontend (simple web page, could be vanilla JS or React):
+
+Textarea for the story
+
+Optional controls:
+
+Number of scenes (default 6–8)
+
+Style preset (“storybook”, “comic”, etc.)
+
+“Generate storyboard” button
+
+A grid that shows each scene:
+
+Scene number + short title
+
+The generated image
+
+Optional: the text prompt used for that image (for transparency / debugging)
+
+Backend (Node.js + Express, or any framework):
+
+Uses official OpenAI SDK (openai).
+
+Exposes one endpoint:
+
+POST /api/storyboard
+
+Request body:
+
+{
+  "story": "string",
+  "num_scenes": 8,
+  "style": "storybook watercolor"
+}
+
+
+Response body:
+
+{
+  "global_style": "Children's watercolor storybook, soft pastel colors",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "The boy finds a glowing key",
+      "caption": "Luca discovers a glowing key in the forest.",
+      "prompt": "Highly detailed prompt sent to DALL·E",
+      "image_url": "https://..."
+    }
+  ]
+}
+
+
+Pipeline inside /api/storyboard:
+
+Call GPT-mini (e.g. gpt-4.1-mini or gpt-5-mini) to get structured JSON scenes.
+
+For each scene, call DALL·E 3:
+
+model: "dall-e-3"
+
+1 image per call, called in parallel via Promise.all.
+
+Return combined JSON to frontend.
+
+2.2 OpenAI setup (backend)
+
+Using official OpenAI Node SDK: 
+GitHub
++1
+
+npm install openai
+
+// openaiClient.js
+import OpenAI from "openai";
+
+export const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+
+Ensure OPENAI_API_KEY is set in environment variables.
+
+2.3 Scene-generation with GPT-mini
+
+Goal: Turn a raw story into 6–8 visually clear, DALL·E-ready prompts, all sharing consistent style and characters.
+
+Model suggestion: gpt-4.1-mini (or gpt-5-mini if you want a bit more reasoning headroom at slightly higher cost). 
+OpenAI Platform
++1
+
+Example data structure:
+
+type StoryboardRequest = {
+  story: string;
+  numScenes: number;  // 6–8
+  style?: string;     // e.g. "storybook watercolor"
+};
+
+type StoryboardPlan = {
+  global_style: string;
+  scenes: {
+    id: number;
+    title: string;
+    short_caption: string;
+    dalle_prompt: string;
+    aspect_ratio: "square" | "portrait" | "landscape";
+  }[];
+};
+
+
+Prompt design (chat completion): 
+OpenAI Platform
++1
+
+import { openai } from "./openaiClient.js";
+
+async function planScenes({ story, numScenes, style }: StoryboardRequest): Promise<StoryboardPlan> {
+  const system = `
+You are a storyboard artist for image generation.
+You turn stories into visual scenes for DALL·E 3.
+
+Rules:
+- Output VALID JSON only, no extra text.
+- 6–8 scenes maximum.
+- Keep characters' appearance consistent across scenes.
+- Include a single global_style string describing overall art style.
+- Each scene's dalle_prompt must be self-contained and explicit:
+  - mention characters' looks
+  - setting
+  - mood
+  - camera angle / composition
+  - art style (reuse global_style).
+`;
+
+  const user = `
+Story:
+"""
+${story}
+"""
+
+Number of scenes: ${numScenes || 8}
+Preferred style (optional): "${style || "storybook illustration"}"
+
+Return JSON with shape:
+{
+  "global_style": "string",
+  "scenes": [
+    {
+      "id": 1,
+      "title": "string",
+      "short_caption": "string",
+      "dalle_prompt": "string",
+      "aspect_ratio": "square" | "portrait" | "landscape"
+    }
+  ]
+}
+`;
+
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4.1-mini",  // or "gpt-5-mini"
+    response_format: { type: "json_object" }, // JSON mode
+    messages: [
+      { role: "system", content: system },
+      { role: "user", content: user },
+    ],
+  });
+
+  const json = completion.choices[0].message.content;
+  return JSON.parse(json);
+}
+
+
+Note for the engineer: response_format: { type: "json_object" } (JSON mode / structured outputs) is important so you can safely JSON.parse without brittle regex. 
+OpenAI Platform
+
+2.4 Image generation with DALL·E 3
+
+Endpoint & SDK:
+
+HTTP endpoint: POST https://api.openai.com/v1/images/generations 
+OpenAI Platform
+
+Using the SDK in Node: await openai.images.generate({...}) 
+OpenAI Platform
++1
+
+For DALL·E 3: model: "dall-e-3", n must be 1. 
+OpenAI Help Center
+
+Example helper:
+
+async function generateSceneImage(scene, globalStyle) {
+  // Build final prompt: scene prompt + global style
+  const fullPrompt = `${scene.dalle_prompt}\n\nArt style: ${globalStyle}`;
+
+  const size = scene.aspect_ratio === "landscape"
+    ? "1792x1024"
+    : scene.aspect_ratio === "portrait"
+    ? "1024x1792"
+    : "1024x1024";
+
+  const result = await openai.images.generate({
+    model: "dall-e-3",
+    prompt: fullPrompt,
+    n: 1,                  // DALL·E 3 only allows 1
+    size,
+    quality: "standard",   // or "hd"
+    style: "vivid",        // or "natural"
+  });
+
+  const url = result.data[0].url;
+  return url;
+}
+
+
+Important details:
+
+DALL·E 3:
+
+Only n = 1 is allowed per request; you must call it once per scene. 
+OpenAI Help Center
+
+Supported sizes: 1024x1024, 1024x1792, 1792x1024. 
+OpenAI Help Center
+
+2.5 Putting it together: the /api/storyboard endpoint
+
+Example in Node.js + Express:
+
+// server.js
+import express from "express";
+import cors from "cors";
+import { planScenes } from "./planScenes.js";
+import { openai } from "./openaiClient.js";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+async function generateSceneImage(scene, globalStyle) {
+  const fullPrompt = `${scene.dalle_prompt}\n\nArt style: ${globalStyle}`;
+
+  const size = scene.aspect_ratio === "landscape"
+    ? "1792x1024"
+    : scene.aspect_ratio === "portrait"
+    ? "1024x1792"
+    : "1024x1024";
+
+  const img = await openai.images.generate({
+    model: "dall-e-3",
+    prompt: fullPrompt,
+    n: 1,
+    size,
+    quality: "standard",
+    style: "vivid",
+  });
+
+  return img.data[0].url;
+}
+
+app.post("/api/storyboard", async (req, res) => {
+  try {
+    const { story, numScenes = 8, style } = req.body;
+
+    if (!story || typeof story !== "string") {
+      return res.status(400).json({ error: "Missing 'story' string" });
+    }
+
+    // Step 1: Plan scenes with GPT-mini
+    const plan = await planScenes({ story, numScenes, style });
+
+    // Step 2: Generate one image per scene (parallel with Promise.all)
+    const imageUrls = await Promise.all(
+      plan.scenes.map(async (scene) => {
+        try {
+          const url = await generateSceneImage(scene, plan.global_style);
+          return { ...scene, image_url: url };
+        } catch (err) {
+          console.error("Error generating image for scene", scene.id, err);
+          return { ...scene, image_url: null, error: "IMAGE_GENERATION_FAILED" };
+        }
+      })
+    );
+
+    // Step 3: Return combined result
+    res.json({
+      global_style: plan.global_style,
+      scenes: imageUrls,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "INTERNAL_ERROR" });
+  }
+});
+
+const port = process.env.PORT || 3001;
+app.listen(port, () => console.log(`Server listening on ${port}`));
+
+2.6 Frontend sketch (very simple)
+
+You don’t need anything fancy; basic HTML + JavaScript is enough.
+
+UI behavior:
+
+User pastes story.
+
+Clicks Generate storyboard.
+
+Frontend sends POST request to /api/storyboard.
+
+While waiting, show a “Generating…” message.
+
+When response arrives, render a grid:
+
+For each scene:
+
+Show Scene ${id}: title
+
+<img src={image_url} />
+
+Optional: show short_caption and maybe a truncated dalle_prompt.
+
+Example (pseudo-React-ish):
+
+function StoryboardApp() {
+  const [story, setStory] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  async function handleGenerate() {
+    setLoading(true);
+    setResult(null);
+    const res = await fetch("/api/storyboard", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ story, numScenes: 8 }),
+    });
+    const json = await res.json();
+    setResult(json);
+    setLoading(false);
+  }
+
+  return (
+    <div>
+      <textarea
+        value={story}
+        onChange={e => setStory(e.target.value)}
+        placeholder="Paste your story here..."
+      />
+
+      <button onClick={handleGenerate} disabled={loading || !story}>
+        {loading ? "Generating..." : "Generate storyboard"}
+      </button>
+
+      {result && (
+        <div className="grid">
+          {result.scenes.map(scene => (
+            <div key={scene.id} className="card">
+              <h3>Scene {scene.id}: {scene.title}</h3>
+              {scene.image_url ? (
+                <img src={scene.image_url} alt={scene.short_caption} />
+              ) : (
+                <p>Image failed to generate.</p>
+              )}
+              <p>{scene.short_caption}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+2.7 Edge cases & nice-to-haves
+
+For the engineer:
+
+Timeouts / retries:
+
+Use sensible timeouts on OpenAI calls.
+
+If a specific image call fails, mark that scene as failed but don’t kill the whole storyboard.
+
+Rate limits:
+
+For a small internal demo, you can probably just use Promise.all.
+
+If this goes public, consider a small concurrency limiter (e.g., max 3 parallel DALL·E calls).
+
+Logging:
+
+Log the LLM-generated prompts and failure cases; that’s where most debugging will happen.
+
+Future upgrade options:
+
+Switch to gpt-image-1 or GPT‑4o image generation instead of DALL·E 3 if you later want better text rendering in images, but that’s not required for the first version.

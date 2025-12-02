@@ -1,0 +1,19 @@
+Create a visual storyboard for the following story.
+
+Number of panels (N): {{NUM_PANELS}}
+
+Preferred style hint (optional):
+"{{STYLE_HINT}}"
+
+Story:
+"""
+{{STORY_TEXT}}
+"""
+
+Instructions:
+- Use the style hint if it is non-empty by incorporating it into "global_style"
+  and into each "image_prompt".
+- If the style hint is empty, choose a style that fits the story (for example,
+  cozy watercolor for a gentle story, dramatic digital painting for an epic one).
+- Make sure the sequence of panels covers the beginning, middle, and end of the story.
+- Return the result in the exact JSON format specified in the system instructions.

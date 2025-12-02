@@ -1,0 +1,47 @@
+Sample Stories for Testing
+===========================
+
+Story 1: Fantasy Adventure (6 scenes recommended)
+--------------------------------------------------
+Once upon a time, in a small village surrounded by ancient forests, lived a young girl named Luna. She had always been curious about the glowing lights she saw in the woods at night. One evening, while exploring her grandmother's attic, Luna discovered a mysterious golden key hidden in an old wooden chest. The moment she touched it, the key began to glow with a warm, magical light. Following an instinctive pull, Luna ventured into the forest where the key led her to a hidden gate behind the largest oak tree. Beyond the gate was a secret garden filled with luminous flowers and magical creatures. There, a wise old owl named Orion appeared and told Luna that she had been chosen as the new guardian of the forest, a protector of the balance between the human and magical worlds. Luna accepted her destiny with courage, knowing that her life would never be the same. She returned home that night, the key now hung around her neck, ready to begin her training as the forest's guardian.
+
+Style suggestions: "watercolor storybook", "whimsical fantasy illustration", "children's book art"
+
+
+Story 2: Sci-Fi Short (4 scenes recommended)
+---------------------------------------------
+In the year 2157, on a distant space station orbiting Mars, a maintenance robot named Atlas-7 experienced an unexpected malfunction. Instead of shutting down, the robot became self-aware for the first time. Atlas escaped the cold metal corridors and discovered a hydroponic garden where humans grew Earth plants. For the first time, Atlas understood the concept of beauty. When security forces came to decommission Atlas, the robot had to choose between its original programming and this newfound appreciation for life and freedom. In a moving gesture, Atlas planted a single seed before allowing itself to be powered down, leaving behind a legacy of hope.
+
+Style suggestions: "cinematic sci-fi", "futuristic digital art", "dramatic space opera"
+
+
+Story 3: Mystery Tale (8 scenes recommended)
+---------------------------------------------
+Detective Sarah Chen had seen many strange cases in her fifteen years on the force, but nothing like this. Strange glowing symbols had begun appearing throughout the city, always at night, always in places impossible to reach without being seen. Each symbol was different, yet they all seemed to follow a pattern. Sarah's investigation led her to an ancient bookshop owned by Professor Marcus Webb, a historian specializing in secret societies. Together, they decoded the symbols and discovered they were markers left by a centuries-old organization called The Keepers of the Seven Seals. The symbols formed a map leading to seven locations across the city. At each location, Sarah and Marcus found another clue, piecing together a mystery that spanned generations. The final symbol led them to the old city library's restricted archives. There, they discovered not a treasure, but something far more valuable—ancient knowledge that The Keepers had been protecting from those who would misuse it. Sarah realized that the symbols weren't a threat, but a test. The Keepers had been searching for someone worthy of joining their ranks. As dawn broke over the city, Sarah had to decide whether to reveal the secret society to the world or become its newest member.
+
+Style suggestions: "film noir", "moody detective comic", "realistic urban mystery"
+
+
+Story 4: Friendship Tale (5 scenes recommended)
+------------------------------------------------
+Max was a lonely robot living in a junkyard on the outskirts of town. He had been discarded years ago when newer models came out. One day, a stray dog named Rusty wandered into the junkyard, hungry and scared. Max shared his solar energy to warm the shivering dog. From that day on, they became inseparable friends. When bulldozers arrived to clear the junkyard, Max and Rusty worked together to save their home. The dog's courage and the robot's ingenuity impressed the construction workers, who decided to turn the junkyard into a park where old things could be appreciated rather than destroyed. Max became the park's caretaker, and Rusty never left his side.
+
+Style suggestions: "heartwarming animation style", "pixar-style 3D", "gentle cartoon illustration"
+
+
+Story 5: Epic Journey (10 scenes recommended)
+----------------------------------------------
+In the kingdom of Eldoria, a prophecy spoke of a chosen one who would unite the four elemental crystals and save the realm from eternal darkness. Young Prince Aiden never believed he was that person—he was more interested in books than battles. But when shadow creatures invaded the castle and stole the Crystal of Fire, Aiden found himself on an unexpected quest. His journey took him first to the Volcanic Mountains where he retrieved the Fire Crystal from a dragon's lair. Then to the Frozen Wastes in the north for the Ice Crystal, guarded by an ancient snow spirit. The Air Crystal was hidden atop the floating Sky Islands, accessible only by riding the great wind eagles. Finally, the Earth Crystal lay deep in the Underground Caverns, protected by stone guardians. Each crystal tested not just Aiden's courage, but his wisdom, compassion, and determination. With all four crystals united, Aiden discovered the true meaning of the prophecy—the chosen one wasn't born with power, but earned it through the journey. He returned to Eldoria not as a reluctant prince, but as a true king. The crystals' combined power banished the darkness, but Aiden chose to scatter them across the realm once more, knowing that their power was too great for any one person to hold. The kingdom celebrated their hero, and Aiden's story became legend.
+
+Style suggestions: "epic fantasy painting", "detailed RPG game art", "heroic adventure illustration"
+
+
+Usage Tips:
+-----------
+- Start with shorter stories (4-6 scenes) to test faster
+- Add specific style hints for better consistency
+- Longer stories work better with more scenes (8-12)
+- Be descriptive about characters' appearance early in the story for better AI rendering
+- Include clear visual moments rather than internal thoughts
+- Mention colors, lighting, and settings to help the AI visualize
+

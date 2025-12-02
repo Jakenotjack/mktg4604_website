@@ -1,0 +1,21 @@
+{
+  "name": "storyboard-generator-backend",
+  "version": "1.0.0",
+  "description": "Backend API for storyboard generation using OpenAI GPT and DALL-E",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "openai": "^4.20.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+

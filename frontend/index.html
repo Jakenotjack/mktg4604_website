@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storyboard Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📖 Storyboard Generator</h1>
+            <p class="subtitle">Transform your story into visual scenes with AI</p>
+        </header>
+
+        <!-- Input Section -->
+        <section class="input-section">
+            <div class="form-group">
+                <label for="story">Your Story</label>
+                <textarea 
+                    id="story" 
+                    placeholder="Once upon a time, there was a young girl named Luna who lived in a small village..."
+                    rows="8"
+                ></textarea>
+            </div>
+
+            <div class="controls">
+                <div class="form-group inline">
+                    <label for="numScenes">Number of Scenes</label>
+                    <input 
+                        type="number" 
+                        id="numScenes" 
+                        min="1" 
+                        max="12" 
+                        value="6"
+                    >
+                </div>
+
+                <div class="form-group inline">
+                    <label for="style">Style (optional)</label>
+                    <input 
+                        type="text" 
+                        id="style" 
+                        placeholder="e.g., watercolor storybook, comic book"
+                    >
+                </div>
+            </div>
+
+            <button id="generateBtn" class="btn-primary">
+                <span class="btn-text">🎨 Generate Storyboard</span>
+            </button>
+        </section>
+
+        <!-- Loading Section -->
+        <section id="loadingSection" class="loading-section hidden">
+            <div class="spinner"></div>
+            <p class="loading-text">Creating your storyboard...</p>
+            <p class="loading-detail">This may take 1-2 minutes</p>
+        </section>
+
+        <!-- Error Section -->
+        <section id="errorSection" class="error-section hidden">
+            <div class="error-box">
+                <h3>❌ Error</h3>
+                <p id="errorMessage"></p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <h2>✨ Your Storyboard</h2>
+                <p id="globalStyle" class="global-style"></p>
+                <div id="metadata" class="metadata"></div>
+            </div>
+
+            <div id="scenesGrid" class="scenes-grid">
+                <!-- Scenes will be dynamically inserted here -->
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
