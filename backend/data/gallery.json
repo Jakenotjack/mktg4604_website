@@ -1,0 +1,218 @@
+{
+  "works": [
+    {
+      "id": "e4a568ec0eea2548",
+      "user": {
+        "name": "Lily",
+        "initials": "L",
+        "avatar": null
+      },
+      "title": "secret garden",
+      "description": "",
+      "globalStyle": "whimsical digital painting with vibrant colors and soft lighting",
+      "mainCharacters": [
+        {
+          "name": "Lily",
+          "description": "8 years old, slender body type, light beige skin, round face with bright eyes, long wavy brown hair, dressed in a colorful t-shirt and denim shorts, no distinctive props"
+        },
+        {
+          "name": "Pip",
+          "description": "fairy, appears as a small creature, olive tan skin, delicate face with large expressive eyes, iridescent dragonfly wings, dressed in a dress made of flower petals, no distinctive props"
+        }
+      ],
+      "scenes": [
+        {
+          "id": 1,
+          "title": "Lily in Her Backyard",
+          "caption": "Lily enjoys a sunny afternoon by her favorite oak tree.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_1.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-Qi1mSA6aPeSWS4yPmqhXgxi3.png?st=2025-12-04T23%3A24%3A57Z&se=2025-12-05T01%3A24%3A57Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-04T19%3A24%3A16Z&ske=2025-12-05T19%3A24%3A16Z&sks=b&skv=2024-08-04&sig=UtCIvZ1JCgq8xsQvh5UOmUFdwVlEdq3mK9937UiASc8%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 2,
+          "title": "Discovering the Glowing Door",
+          "caption": "Lily finds a tiny door in the oak tree.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_2.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-n2cT9vGSdDf8QAWOsc26MWXB.png?st=2025-12-04T23%3A24%3A59Z&se=2025-12-05T01%3A24%3A59Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A24%3A59Z&ske=2025-12-06T00%3A24%3A59Z&sks=b&skv=2024-08-04&sig=zDbRiMKYLq0vigBv0i6x%2Bu3o0eoBQa6PYUSRqw3BCLw%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 3,
+          "title": "Entering the Magical Tunnel",
+          "caption": "Lily squeezes through the glowing door.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_3.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-mh2htdL9gE8mhZ8HdX3SVbjH.png?st=2025-12-04T23%3A24%3A48Z&se=2025-12-05T01%3A24%3A48Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A24%3A48Z&ske=2025-12-06T00%3A24%3A48Z&sks=b&skv=2024-08-04&sig=dHLjuBKL7R5B8bbjH0umUuCFIP2s21yv7x1m/xCv3XA%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 4,
+          "title": "The Whispering Woods",
+          "caption": "Lily arrives in a magical world.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_4.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-KiOemf9ZMgM9EHzPV4pkgHCb.png?st=2025-12-04T23%3A24%3A51Z&se=2025-12-05T01%3A24%3A51Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A24%3A51Z&ske=2025-12-06T00%3A24%3A51Z&sks=b&skv=2024-08-04&sig=SEKjIFanmpzCxwEEWCgjPAY2emRQpAYBy9oo6JIldfU%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 5,
+          "title": "Meeting Pip the Fairy",
+          "caption": "Lily meets Pip, the friendly fairy.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_5.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-lccBuDInz6hsmRXygzeoqAna.png?st=2025-12-04T23%3A24%3A49Z&se=2025-12-05T01%3A24%3A49Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=ed3ea2f9-5e38-44be-9a1b-7c1e65e4d54f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A24%3A49Z&ske=2025-12-06T00%3A24%3A49Z&sks=b&skv=2024-08-04&sig=Cbr1D6jfgUlYlZaccIBJaxDJdY4yNbNM18QsE1aNCfk%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 6,
+          "title": "Returning Home Under the Stars",
+          "caption": "Lily promises to return to the magical world.",
+          "imageUrl": "/images/e4a568ec0eea2548_scene_6.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-EnkHp39qyi839048Rwf3b6dg.png?st=2025-12-04T23%3A24%3A56Z&se=2025-12-05T01%3A24%3A56Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A24%3A56Z&ske=2025-12-06T00%3A24%3A56Z&sks=b&skv=2024-08-04&sig=kgaw4kXj9TZRr/FPu%2BOkpOVbkTkwIi0YkIyyYiBsX3A%3D",
+          "aspectRatio": "square"
+        }
+      ],
+      "createdAt": "2025-12-05T00:25:29.971Z",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "id": "946cb25f0f8a9269",
+      "user": {
+        "name": "luna",
+        "initials": "L",
+        "avatar": null
+      },
+      "title": "secret garden",
+      "description": "",
+      "globalStyle": "whimsical digital painting with vibrant colors and soft lighting",
+      "mainCharacters": [
+        {
+          "name": "Luna",
+          "description": "8 years old, slender body type, warm brown skin, round face with bright eyes and a small nose, long wavy dark brown hair, dressed in a light blue dress with white flowers, carrying a golden key"
+        }
+      ],
+      "scenes": [
+        {
+          "id": 1,
+          "title": "Luna Discovers the Golden Key",
+          "caption": "Luna finds a mysterious key in her grandmother's attic.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_1.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-NJsDv7sQvT8KB3yBWGahJQpK.png?st=2025-12-04T23%3A12%3A36Z&se=2025-12-05T01%3A12%3A36Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=9346e9b9-5d29-4d37-a0a9-c6f95f09f79d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A36Z&ske=2025-12-06T00%3A12%3A36Z&sks=b&skv=2024-08-04&sig=GCYPJBiYf0b%2Biu4PBdci4evrmkqnz/GMF01cMFQIX3w%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 2,
+          "title": "Following the Sparkling Trail",
+          "caption": "Luna follows a magical trail into the forest.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_2.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-94fgeeDUStm4D1nAQE6s6bA4.png?st=2025-12-04T23%3A12%3A30Z&se=2025-12-05T01%3A12%3A30Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A30Z&ske=2025-12-06T00%3A12%3A30Z&sks=b&skv=2024-08-04&sig=1Mcckb0sht%2BQLi4V31UvLLtB5OE7arIMHhNphvTjngg%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 3,
+          "title": "The Ancient Stone Door",
+          "caption": "Luna discovers a hidden door covered in ivy.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_3.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-xurJiEWRUTRmZ7cll8HJ254M.png?st=2025-12-04T23%3A12%3A31Z&se=2025-12-05T01%3A12%3A31Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=ed3ea2f9-5e38-44be-9a1b-7c1e65e4d54f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A31Z&ske=2025-12-06T00%3A12%3A31Z&sks=b&skv=2024-08-04&sig=B7vzBP0nunDosCoys3EiM2UXvAji5EQk6bGbmfJRZ6Y%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 4,
+          "title": "Entering the Secret Garden",
+          "caption": "The door opens to reveal a magical garden.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_4.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-czPzBBFN4850zF7TI5P3tbxO.png?st=2025-12-04T23%3A12%3A35Z&se=2025-12-05T01%3A12%3A35Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A35Z&ske=2025-12-06T00%3A12%3A35Z&sks=b&skv=2024-08-04&sig=FGdIKc0YwXlZ3L5BWcMT%2BFZQsIiCHCv3279YCHrEG40%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 5,
+          "title": "Meeting the Wise Old Owl",
+          "caption": "Luna meets the guardian of the garden.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_5.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-IUvMzO6Y4vmtTQ69UaQQJkOb.png?st=2025-12-04T23%3A12%3A32Z&se=2025-12-05T01%3A12%3A32Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A32Z&ske=2025-12-06T00%3A12%3A32Z&sks=b&skv=2024-08-04&sig=VhFPUYQXgVjhC54eKTcWJq2tZBTPqoXjR1M7NXhBiic%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 6,
+          "title": "Luna Becomes the Guardian",
+          "caption": "Luna accepts her role as protector of the realm.",
+          "imageUrl": "/images/946cb25f0f8a9269_scene_6.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-FNXbpOgFLjQHPu7kJTIieWGE.png?st=2025-12-04T23%3A12%3A31Z&se=2025-12-05T01%3A12%3A31Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-05T00%3A12%3A31Z&ske=2025-12-06T00%3A12%3A31Z&sks=b&skv=2024-08-04&sig=w0yGpDzlbtpTTXsS/goM%2BBZ7r9M6OM0%2BfLnLLAwhafc%3D",
+          "aspectRatio": "square"
+        }
+      ],
+      "createdAt": "2025-12-05T00:13:06.433Z",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "id": "9c2a3e5b45a57634",
+      "user": {
+        "name": "Jake",
+        "initials": "J",
+        "avatar": null
+      },
+      "title": "lune",
+      "description": "",
+      "globalStyle": "whimsical digital painting with bright colors and soft lighting",
+      "mainCharacters": [
+        {
+          "name": "Luna",
+          "description": "8 years old, petite body type, light beige skin, round face with curious eyes, long wavy dark brown hair, dressed in a simple white dress with a floral pattern, holding a golden key"
+        }
+      ],
+      "scenes": [
+        {
+          "id": 1,
+          "title": "Luna discovers the golden key",
+          "caption": "Luna finds a golden key in her grandmother's attic.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_1.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-KEhTuNI8WOyG0iPDU2g99M3l.png?st=2025-12-02T20%3A49%3A04Z&se=2025-12-02T22%3A49%3A04Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T14%3A07%3A45Z&ske=2025-12-03T14%3A07%3A45Z&sks=b&skv=2024-08-04&sig=6I2W0cUjijuWcwsVk4VEyQfXIk/IJftooHijFlWX6n4%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 2,
+          "title": "Following the sparkles",
+          "caption": "Luna follows a trail of sparkles into the forest.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_2.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-KklarrsnJYbQJE1zVHtNhB5U.png?st=2025-12-02T20%3A48%3A54Z&se=2025-12-02T22%3A48%3A54Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T21%3A47%3A17Z&ske=2025-12-03T21%3A47%3A17Z&sks=b&skv=2024-08-04&sig=uExHbPMF3%2BkZbbXsqULiuaDTSjmkn7QZP4ACzdn/uOc%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 3,
+          "title": "The ancient stone door",
+          "caption": "Luna discovers an ancient door covered in ivy.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_3.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-JoP2Vulx29G9PuJR7tc52Bqs.png?st=2025-12-02T20%3A48%3A53Z&se=2025-12-02T22%3A48%3A53Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=f1dafa11-a0c2-4092-91d4-10981fbda051&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T21%3A48%3A53Z&ske=2025-12-03T21%3A48%3A53Z&sks=b&skv=2024-08-04&sig=9g%2BKdiFzmsBkBTsGPm6n1YZ8Xzm9HJYpOqu4T8PQ5KU%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 4,
+          "title": "Entering the secret garden",
+          "caption": "Luna unlocks the door to a magical garden.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_4.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-iCY9aqWoBL5NYiXwOKpmhd1y.png?st=2025-12-02T20%3A48%3A59Z&se=2025-12-02T22%3A48%3A59Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=7daae675-7b42-4e2e-ab4c-8d8419a28d99&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T21%3A47%3A27Z&ske=2025-12-03T21%3A47%3A27Z&sks=b&skv=2024-08-04&sig=zOyncVSg5HtZHJuU/bFtSGc/11DQcwayW7k9gOFBczI%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 5,
+          "title": "Meeting the wise old owl",
+          "caption": "Luna meets the wise owl in the garden.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_5.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-viilfgBa1BDBrBZVyvpWWHyu.png?st=2025-12-02T20%3A48%3A54Z&se=2025-12-02T22%3A48%3A54Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=77e5a8ec-6bd1-4477-8afc-16703a64f029&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T21%3A48%3A54Z&ske=2025-12-03T21%3A48%3A54Z&sks=b&skv=2024-08-04&sig=PrYS4sSl1XzJJS7icwNYkTN2C8JN1TggKEYx6njPEIY%3D",
+          "aspectRatio": "square"
+        },
+        {
+          "id": 6,
+          "title": "Luna accepts her destiny",
+          "caption": "Luna embraces her role as guardian.",
+          "imageUrl": "/images/9c2a3e5b45a57634_scene_6.png",
+          "originalUrl": "https://oaidalleapiprodscus.blob.core.windows.net/private/org-pvmLuISx5wwfFvoUb63PXf2z/user-AhoTANPKXZZkWVmL74bkRStH/img-c9bodU1fStjvJoEDfbkVlLVZ.png?st=2025-12-02T20%3A48%3A53Z&se=2025-12-02T22%3A48%3A53Z&sp=r&sv=2024-08-04&sr=b&rscd=inline&rsct=image/png&skoid=b1a0ae1f-618f-4548-84fd-8b16cacd5485&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-12-02T16%3A29%3A34Z&ske=2025-12-03T16%3A29%3A34Z&sks=b&skv=2024-08-04&sig=bxXW4bPcLJH3ZQgN0Jsl/c7Q0Gb8YEjjU/xaXViH7/w%3D",
+          "aspectRatio": "square"
+        }
+      ],
+      "createdAt": "2025-12-02T21:50:28.707Z",
+      "visible": true,
+      "featured": false
+    }
+  ]
+}

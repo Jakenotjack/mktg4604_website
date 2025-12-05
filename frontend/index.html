@@ -2,86 +2,160 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storyboard Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Transform your story into visual scenes with AI-powered storyboard generation">
+    <title>STORYBRD</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Preconnect to OpenAI for faster image loading -->
+    <link rel="preconnect" href="https://oaidalleapiprodscus.blob.core.windows.net">
 </head>
 <body>
     <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="nav-brand">📖 STORYBRD</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Create</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+            </div>
+        </nav>
+
         <!-- Header -->
-        <header>
-            <h1>📖 Storyboard Generator</h1>
-            <p class="subtitle">Transform your story into visual scenes with AI</p>
+        <header class="header header--compact">
+            <p class="header-subtitle">Transform your story into visual scenes with AI</p>
         </header>
 
         <!-- Input Section -->
-        <section class="input-section">
-            <div class="form-group">
-                <label for="story">Your Story</label>
-                <textarea 
-                    id="story" 
-                    placeholder="Once upon a time, there was a young girl named Luna who lived in a small village..."
-                    rows="8"
-                ></textarea>
-            </div>
-
-            <div class="controls">
-                <div class="form-group inline">
-                    <label for="numScenes">Number of Scenes</label>
-                    <input 
-                        type="number" 
-                        id="numScenes" 
-                        min="1" 
-                        max="12" 
-                        value="6"
-                    >
+        <main class="main-content">
+            <section class="input-section card">
+                <div class="form-group">
+                    <label for="story" class="label">Your Story</label>
+                    <textarea 
+                        id="story" 
+                        class="textarea"
+                        placeholder="Once upon a time, there was a young girl named Luna who lived in a small village..."
+                        rows="6"
+                        aria-describedby="story-hint"
+                    ></textarea>
+                    <p id="story-hint" class="hint">Write or paste your story here. The AI will create visual scenes from it.</p>
                 </div>
 
-                <div class="form-group inline">
-                    <label for="style">Style (optional)</label>
-                    <input 
-                        type="text" 
-                        id="style" 
-                        placeholder="e.g., watercolor storybook, comic book"
-                    >
+                <div class="controls-row">
+                    <div class="form-group form-group--half">
+                        <label for="numScenes" class="label">Scenes</label>
+                        <select id="numScenes" class="select">
+                            <option value="4">4 scenes</option>
+                            <option value="5">5 scenes</option>
+                            <option value="6" selected>6 scenes</option>
+                            <option value="7">7 scenes</option>
+                            <option value="8">8 scenes</option>
+                            <option value="10">10 scenes</option>
+                            <option value="12">12 scenes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group form-group--half">
+                        <label for="style" class="label">Style</label>
+                        <select id="style" class="select">
+                            <option value="">Auto (AI chooses)</option>
+                            <option value="watercolor storybook illustration">Watercolor Storybook</option>
+                            <option value="digital painting, vibrant colors">Digital Painting</option>
+                            <option value="comic book style, bold lines">Comic Book</option>
+                            <option value="anime style, soft colors">Anime Style</option>
+                            <option value="realistic, cinematic lighting">Realistic/Cinematic</option>
+                            <option value="pixel art, retro game style">Pixel Art</option>
+                            <option value="oil painting, classical art">Oil Painting</option>
+                            <option value="minimalist, flat design">Minimalist</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <button id="generateBtn" class="btn-primary">
-                <span class="btn-text">🎨 Generate Storyboard</span>
-            </button>
-        </section>
+                <button id="generateBtn" class="btn-primary" type="button">
+                    <span class="btn-icon">🎨</span>
+                    <span class="btn-text">Generate Storyboard</span>
+                </button>
 
-        <!-- Loading Section -->
-        <section id="loadingSection" class="loading-section hidden">
-            <div class="spinner"></div>
-            <p class="loading-text">Creating your storyboard...</p>
-            <p class="loading-detail">This may take 1-2 minutes</p>
-        </section>
+                <p class="cost-hint">⏱️ Takes 1-2 minutes • 💰 ~$0.25 for 6 scenes</p>
+            </section>
 
-        <!-- Error Section -->
-        <section id="errorSection" class="error-section hidden">
-            <div class="error-box">
-                <h3>❌ Error</h3>
-                <p id="errorMessage"></p>
-            </div>
-        </section>
+            <!-- Loading Section -->
+            <section id="loadingSection" class="loading-section card hidden">
+                <div class="spinner" aria-hidden="true"></div>
+                <p class="loading-text" id="loadingText">Creating your storyboard...</p>
+                <p class="loading-detail" id="loadingDetail">Planning scenes with AI</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p class="loading-step" id="loadingStep">Step 1 of 2</p>
+            </section>
 
-        <!-- Results Section -->
-        <section id="resultsSection" class="results-section hidden">
-            <div class="results-header">
-                <h2>✨ Your Storyboard</h2>
-                <p id="globalStyle" class="global-style"></p>
-                <div id="metadata" class="metadata"></div>
-            </div>
+            <!-- Error Section -->
+            <section id="errorSection" class="error-section card hidden">
+                <div class="error-box">
+                    <h3 class="error-title">❌ Something went wrong</h3>
+                    <p id="errorMessage" class="error-message"></p>
+                    <button id="retryBtn" class="btn-secondary" type="button">Try Again</button>
+                </div>
+            </section>
 
-            <div id="scenesGrid" class="scenes-grid">
-                <!-- Scenes will be dynamically inserted here -->
-            </div>
-        </section>
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden">
+                <div class="results-header card">
+                    <h2 class="results-title">✨ Your Storyboard</h2>
+                    <p id="globalStyle" class="global-style"></p>
+                    <div id="metadata" class="metadata"></div>
+                </div>
+
+                <div id="scenesGrid" class="scenes-grid">
+                    <!-- Scenes will be dynamically inserted here -->
+                </div>
+
+                <!-- Publish Section -->
+                <div id="publishSection" class="publish-section card">
+                    <h3 class="publish-title">📤 Share Your Creation</h3>
+                    <p class="publish-description">Publish your storyboard to the community gallery for others to see!</p>
+                    
+                    <div class="publish-form">
+                        <div class="form-group">
+                            <label for="userName" class="label">Your Name</label>
+                            <input 
+                                type="text" 
+                                id="userName" 
+                                class="input"
+                                placeholder="Enter your name or nickname"
+                                maxlength="50"
+                            >
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="storyTitle" class="label">Story Title</label>
+                            <input 
+                                type="text" 
+                                id="storyTitle" 
+                                class="input"
+                                placeholder="Give your storyboard a title"
+                                maxlength="100"
+                            >
+                        </div>
+                        
+                        <button id="publishBtn" class="btn-publish" type="button">
+                            <span class="btn-icon">🚀</span>
+                            <span class="btn-text">Publish to Gallery</span>
+                        </button>
+                    </div>
+                    
+                    <p id="publishStatus" class="publish-status hidden"></p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Powered by OpenAI GPT-4 & DALL-E 3</p>
+        </footer>
     </div>
 
     <script src="app.js"></script>
 </body>
 </html>
-

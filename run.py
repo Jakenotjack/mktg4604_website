@@ -121,11 +121,15 @@ def start_frontend():
         print(f"⚠️  Port {FRONTEND_PORT} is already in use. Frontend may already be running.")
         return None
     
-    # Start Python HTTP server
+    # Create a log file for frontend (prevents pipe buffer issues)
+    frontend_log = PROJECT_ROOT / "frontend.log"
+    log_file = open(frontend_log, 'w')
+    
+    # Start Python HTTP server with logs going to file (not PIPE - which can cause hangs)
     process = subprocess.Popen(
         [sys.executable, "-m", "http.server", str(FRONTEND_PORT)],
         cwd=FRONTEND_DIR,
-        stdout=subprocess.PIPE,
+        stdout=log_file,
         stderr=subprocess.STDOUT,
         preexec_fn=os.setpgrp  # Create new process group
     )
@@ -134,7 +138,25 @@ def start_frontend():
     time.sleep(1)
     if process.poll() is not None:
         print("❌ Frontend server failed to start!")
+        log_file.close()
         return None
+    
+    # Verify the server is actually responding
+    max_retries = 5
+    for i in range(max_retries):
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.settimeout(1)
+                s.connect(('127.0.0.1', FRONTEND_PORT))
+                s.sendall(b'GET / HTTP/1.0\r\n\r\n')
+                response = s.recv(100)
+                if b'HTTP' in response:
+                    break
+        except Exception:
+            if i < max_retries - 1:
+                time.sleep(0.5)
+            else:
+                print("⚠️  Frontend started but may not be responding correctly")
     
     print(f"✅ Frontend started on http://localhost:{FRONTEND_PORT} (PID: {process.pid})")
     return process.pid
@@ -209,6 +231,39 @@ def cmd_start():
     print("="*50 + "\n")
 
 
+def kill_process_on_port(port):
+    """Kill any process running on the specified port"""
+    try:
+        # Find PIDs using the port
+        result = subprocess.run(
+            ["lsof", "-ti", f":{port}"],
+            capture_output=True,
+            text=True
+        )
+        pids = result.stdout.strip().split('\n')
+        pids = [p for p in pids if p]  # Filter empty strings
+        
+        if pids:
+            for pid in pids:
+                try:
+                    os.kill(int(pid), signal.SIGTERM)
+                    time.sleep(0.5)
+                    # Force kill if still running
+                    try:
+                        os.kill(int(pid), 0)  # Check if still running
+                        os.kill(int(pid), signal.SIGKILL)
+                    except OSError:
+                        pass  # Process already dead
+                    print(f"✅ Killed process on port {port} (PID: {pid})")
+                except (ValueError, OSError) as e:
+                    print(f"⚠️  Could not kill PID {pid}: {e}")
+            return True
+        return False
+    except Exception as e:
+        print(f"⚠️  Error checking port {port}: {e}")
+        return False
+
+
 def cmd_stop():
     """Stop both servers"""
     print("\n" + "="*50)
@@ -216,28 +271,35 @@ def cmd_stop():
     print("="*50 + "\n")
     
     pids = get_running_pids()
+    stopped_any = False
     
-    if not pids:
-        print("ℹ️  No servers are tracked. They may not be running.")
-        # Try to find and kill by port
-        print("🔍 Checking ports...")
-        
-        if is_port_in_use(BACKEND_PORT):
-            print(f"⚠️  Port {BACKEND_PORT} is in use. Try: lsof -ti:{BACKEND_PORT} | xargs kill")
-        else:
-            print(f"✅ Port {BACKEND_PORT} is free")
-            
-        if is_port_in_use(FRONTEND_PORT):
-            print(f"⚠️  Port {FRONTEND_PORT} is in use. Try: lsof -ti:{FRONTEND_PORT} | xargs kill")
-        else:
-            print(f"✅ Port {FRONTEND_PORT} is free")
-    else:
+    # First, try to stop tracked processes
+    if pids:
         for name, pid in pids.items():
-            stop_process(name.capitalize(), pid)
+            if stop_process(name.capitalize(), pid):
+                stopped_any = True
         
         # Remove PID file
         if PID_FILE.exists():
             PID_FILE.unlink()
+    
+    # Also kill any processes on the ports (in case they weren't tracked)
+    print("🔍 Checking ports for any remaining processes...")
+    
+    if is_port_in_use(BACKEND_PORT):
+        if kill_process_on_port(BACKEND_PORT):
+            stopped_any = True
+    else:
+        print(f"✅ Port {BACKEND_PORT} (backend) is free")
+        
+    if is_port_in_use(FRONTEND_PORT):
+        if kill_process_on_port(FRONTEND_PORT):
+            stopped_any = True
+    else:
+        print(f"✅ Port {FRONTEND_PORT} (frontend) is free")
+    
+    if not stopped_any and not pids:
+        print("ℹ️  No servers were running.")
     
     print("\n" + "="*50)
     print("✅ Shutdown complete")

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="description" content="Community gallery of AI-generated storyboards made with STORYBRD">
+    <title>Gallery | STORYBRD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="nav">
+            <a href="index.html" class="nav-brand">📖 STORYBRD</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Create</a>
+                <a href="gallery.html" class="nav-link active">Gallery</a>
+            </div>
+        </nav>
+
+        <!-- Header -->
+        <header class="gallery-header">
+            <h1 class="gallery-title">🎨 Community Gallery</h1>
+            <p class="gallery-subtitle">Explore storyboards created by our community</p>
+        </header>
+
+        <!-- Loading State -->
+        <section id="loadingSection" class="loading-section">
+            <div class="spinner"></div>
+            <p class="loading-text">Loading gallery...</p>
+        </section>
+
+        <!-- Empty State -->
+        <section id="emptySection" class="empty-section hidden">
+            <div class="empty-box">
+                <div class="empty-icon">📭</div>
+                <h2>No storyboards yet</h2>
+                <p>Be the first to share your creation!</p>
+                <a href="index.html" class="btn-primary">Create a Storyboard</a>
+            </div>
+        </section>
+
+        <!-- Error State -->
+        <section id="errorSection" class="error-section hidden">
+            <div class="error-box">
+                <h3>❌ Something went wrong</h3>
+                <p id="errorMessage"></p>
+                <button id="retryBtn" class="btn-secondary">Try Again</button>
+            </div>
+        </section>
+
+        <!-- Gallery Grid -->
+        <main id="galleryGrid" class="gallery-grid hidden">
+            <!-- Works will be dynamically inserted here -->
+        </main>
+
+        <!-- Load More Button -->
+        <div id="loadMoreContainer" class="load-more-container hidden">
+            <button id="loadMoreBtn" class="btn-secondary">Load More</button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with STORYBRD • Powered by OpenAI</p>
+        </footer>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close">&times;</button>
+            <div id="modalBody" class="modal-body">
+                <!-- Detail content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="gallery.js"></script>
+</body>
+</html>
+

@@ -1,16 +1,29 @@
 /**
  * Storyboard Generator API Server
- * Main Express server with /api/storyboard endpoint
+ * Main Express server with /api/storyboard and /api/gallery endpoints
  */
 
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import { planScenes } from "./planScenes.js";
 import { generateAllImages } from "./generateImage.js";
+import { 
+  publishToGallery, 
+  getGalleryWorks, 
+  getWorkById, 
+  setWorkVisibility,
+  deleteWork,
+  getImagesDir 
+} from "./galleryStore.js";
 
 // Load environment variables
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,13 +32,23 @@ const PORT = process.env.PORT || 3001;
 app.use(cors()); // Enable CORS for frontend
 app.use(express.json({ limit: "10mb" })); // Parse JSON bodies
 
-// Health check endpoint
-app.get("/", (req, res) => {
+// Serve static images from the gallery
+app.use("/images", express.static(getImagesDir()));
+
+// Serve frontend static files (HTML, CSS, JS)
+const frontendDir = path.join(__dirname, "..", "frontend");
+app.use(express.static(frontendDir));
+
+// Health check endpoint (API info)
+app.get("/api", (req, res) => {
   res.json({
     status: "ok",
-    message: "Storyboard Generator API",
+    message: "STORYBRD API",
     endpoints: {
-      storyboard: "POST /api/storyboard"
+      storyboard: "POST /api/storyboard",
+      gallery: "GET /api/gallery",
+      galleryWork: "GET /api/gallery/:id",
+      publish: "POST /api/gallery/publish"
     }
   });
 });
@@ -126,12 +149,223 @@ app.post("/api/storyboard", async (req, res) => {
   }
 });
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({
-    error: "NOT_FOUND",
-    message: `Endpoint ${req.method} ${req.path} not found`
-  });
+// ============================================
+// GALLERY ENDPOINTS
+// ============================================
+
+/**
+ * GET /api/gallery - Get all gallery works
+ * Query params: limit, offset
+ */
+app.get("/api/gallery", (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 20;
+    const offset = parseInt(req.query.offset) || 0;
+    
+    const result = getGalleryWorks({ limit, offset });
+    
+    res.json({
+      success: true,
+      ...result
+    });
+  } catch (error) {
+    console.error("Error fetching gallery:", error.message);
+    res.status(500).json({
+      success: false,
+      error: "GALLERY_ERROR",
+      message: error.message
+    });
+  }
+});
+
+/**
+ * GET /api/gallery/:id - Get a single work by ID
+ */
+app.get("/api/gallery/:id", (req, res) => {
+  try {
+    const work = getWorkById(req.params.id);
+    
+    if (!work) {
+      return res.status(404).json({
+        success: false,
+        error: "NOT_FOUND",
+        message: "Work not found"
+      });
+    }
+    
+    res.json({
+      success: true,
+      work
+    });
+  } catch (error) {
+    console.error("Error fetching work:", error.message);
+    res.status(500).json({
+      success: false,
+      error: "GALLERY_ERROR",
+      message: error.message
+    });
+  }
+});
+
+/**
+ * POST /api/gallery/publish - Publish a storyboard to the gallery
+ */
+app.post("/api/gallery/publish", async (req, res) => {
+  try {
+    const {
+      userName,
+      userAvatar,
+      title,
+      description,
+      globalStyle,
+      mainCharacters,
+      scenes
+    } = req.body;
+    
+    // Validate required fields
+    if (!userName || typeof userName !== "string" || userName.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: "BAD_REQUEST",
+        message: "userName is required"
+      });
+    }
+    
+    if (!scenes || !Array.isArray(scenes) || scenes.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: "BAD_REQUEST",
+        message: "scenes array is required and must not be empty"
+      });
+    }
+    
+    // Check that at least one scene has an image
+    const hasImages = scenes.some(s => s.image_url);
+    if (!hasImages) {
+      return res.status(400).json({
+        success: false,
+        error: "BAD_REQUEST",
+        message: "At least one scene must have an image"
+      });
+    }
+    
+    console.log("\n" + "=".repeat(60));
+    console.log("📤 Publishing to gallery...");
+    console.log(`   User: ${userName}`);
+    console.log(`   Title: ${title || "Untitled"}`);
+    console.log("=".repeat(60));
+    
+    const work = await publishToGallery({
+      userName: userName.trim(),
+      userAvatar,
+      title: title || "Untitled Story",
+      description: description || "",
+      globalStyle: globalStyle || "",
+      mainCharacters: mainCharacters || [],
+      scenes
+    });
+    
+    console.log("✅ Published successfully!");
+    
+    res.json({
+      success: true,
+      work: {
+        id: work.id,
+        title: work.title,
+        createdAt: work.createdAt
+      },
+      message: "Storyboard published to gallery!"
+    });
+    
+  } catch (error) {
+    console.error("Error publishing to gallery:", error.message);
+    res.status(500).json({
+      success: false,
+      error: "PUBLISH_ERROR",
+      message: error.message
+    });
+  }
+});
+
+/**
+ * PATCH /api/gallery/:id/visibility - Update work visibility (moderation)
+ */
+app.patch("/api/gallery/:id/visibility", (req, res) => {
+  try {
+    const { visible } = req.body;
+    
+    if (typeof visible !== "boolean") {
+      return res.status(400).json({
+        success: false,
+        error: "BAD_REQUEST",
+        message: "visible must be a boolean"
+      });
+    }
+    
+    const success = setWorkVisibility(req.params.id, visible);
+    
+    if (!success) {
+      return res.status(404).json({
+        success: false,
+        error: "NOT_FOUND",
+        message: "Work not found"
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: `Work visibility set to ${visible}`
+    });
+  } catch (error) {
+    console.error("Error updating visibility:", error.message);
+    res.status(500).json({
+      success: false,
+      error: "UPDATE_ERROR",
+      message: error.message
+    });
+  }
+});
+
+/**
+ * DELETE /api/gallery/:id - Delete a work from the gallery
+ */
+app.delete("/api/gallery/:id", (req, res) => {
+  try {
+    const success = deleteWork(req.params.id);
+    
+    if (!success) {
+      return res.status(404).json({
+        success: false,
+        error: "NOT_FOUND",
+        message: "Work not found"
+      });
+    }
+    
+    res.json({
+      success: true,
+      message: "Work deleted"
+    });
+  } catch (error) {
+    console.error("Error deleting work:", error.message);
+    res.status(500).json({
+      success: false,
+      error: "DELETE_ERROR",
+      message: error.message
+    });
+  }
+});
+
+// Catch-all: serve index.html for any non-API routes (SPA support)
+app.get("*", (req, res) => {
+  // If it's an API route that wasn't matched, return 404 JSON
+  if (req.path.startsWith("/api/")) {
+    return res.status(404).json({
+      error: "NOT_FOUND",
+      message: `Endpoint ${req.method} ${req.path} not found`
+    });
+  }
+  // Otherwise serve the frontend
+  res.sendFile(path.join(frontendDir, "index.html"));
 });
 
 // Start server

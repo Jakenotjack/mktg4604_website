@@ -140,7 +140,7 @@ Constraints:
       messages: [
         { role: "user", content: userPrompt },
       ],
-      temperature: 0.7,
+      temperature: 0.2, // Low temperature for more consistent, deterministic scene planning
     });
 
     const jsonContent = completion.choices[0].message.content;
