@@ -368,11 +368,11 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(frontendDir, "index.html"));
 });
 
-// Start server
-app.listen(PORT, () => {
+// Start server - bind to 0.0.0.0 for Railway/cloud hosting
+app.listen(PORT, "0.0.0.0", () => {
   console.log("\n" + "=".repeat(60));
   console.log("🚀 Storyboard Generator API Server");
-  console.log(`📍 Server running on http://localhost:${PORT}`);
+  console.log(`📍 Server running on port ${PORT}`);
   console.log(`🔑 API Key configured: ${process.env.OPENAI_API_KEY ? "✅ Yes" : "❌ No"}`);
   console.log("=".repeat(60) + "\n");
 });

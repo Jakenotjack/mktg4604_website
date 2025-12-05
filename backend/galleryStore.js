@@ -21,13 +21,18 @@ const IMAGES_DIR = path.join(DATA_DIR, "images");
 
 // Ensure directories exist
 function ensureDirectories() {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-    console.log("📁 Created data directory");
-  }
-  if (!fs.existsSync(IMAGES_DIR)) {
-    fs.mkdirSync(IMAGES_DIR, { recursive: true });
-    console.log("📁 Created images directory");
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+      console.log("📁 Created data directory");
+    }
+    if (!fs.existsSync(IMAGES_DIR)) {
+      fs.mkdirSync(IMAGES_DIR, { recursive: true });
+      console.log("📁 Created images directory");
+    }
+  } catch (error) {
+    console.error("⚠️ Could not create directories:", error.message);
+    // Continue anyway - gallery features may not work but app won't crash
   }
 }
 
